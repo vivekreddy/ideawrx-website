@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IdeaWRX — From Idea to Empire</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=Outfit:wght@300;400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --cream: #ede8df;
+    --accent: #c8ff00;
+    --accent-dim: #a3cc00;
+    --gray: #6b6b6b;
+    --gray-light: #b0aba2;
+    --border: rgba(245, 242, 236, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--black);
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 28px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(10, 10, 10, 0.6);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.4s ease;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: baseline;
+    text-decoration: none;
+    gap: 0;
+  }
+
+  .logo-idea {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.45rem;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    transition: opacity 0.3s;
+  }
+
+  .logo-wrx {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.45rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    transition: color 0.3s;
+  }
+
+  .logo:hover .logo-wrx {
+    color: #d4ff33;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--gray-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--accent) !important;
+    color: var(--black) !important;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 700 !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.06em !important;
+    transition: all 0.25s ease !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--white) !important;
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 160px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245, 242, 236, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245, 242, 236, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 255, 0, 0.06) 0%, transparent 70%);
+    top: 10%;
+    right: 10%;
+    pointer-events: none;
+    animation: glowPulse 8s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    max-width: 900px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero h1 .outline {
+    -webkit-text-stroke: 1.5px var(--white);
+    color: transparent;
+  }
+
+  .hero h1 .accent {
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    margin-top: 36px;
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    max-width: 520px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-actions {
+    margin-top: 48px;
+    display: flex;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: var(--black);
+    padding: 16px 36px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(200, 255, 0, 0.15);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--white);
+    padding: 16px 36px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid rgba(245, 242, 236, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--white);
+    background: rgba(245, 242, 236, 0.05);
+  }
+
+  .hero-stats {
+    margin-top: 80px;
+    display: flex;
+    gap: 64px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .stat-item {
+    position: relative;
+  }
+
+  .stat-item::after {
+    content: '';
+    position: absolute;
+    right: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+  }
+
+  .stat-item:last-child::after { display: none; }
+
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 48px;
+    animation: scroll 30s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-track span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .marquee-track span::after {
+    content: '◆';
+    color: var(--accent);
+    font-size: 0.5rem;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── SECTION SHARED ── */
+  section {
+    padding: 120px 48px;
+  }
+
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    max-width: 700px;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1.8;
+    max-width: 560px;
+    margin-top: 20px;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: linear-gradient(160deg, rgba(200, 255, 0, 0.03) 0%, rgba(10, 10, 10, 1) 60%);
+  }
+
+  .about-visual-inner {
+    position: absolute;
+    inset: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .about-block {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: rgba(245, 242, 236, 0.02);
+    transition: all 0.4s ease;
+  }
+
+  .about-block:hover {
+    background: rgba(200, 255, 0, 0.04);
+    border-color: rgba(200, 255, 0, 0.15);
+  }
+
+  .about-block-icon {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+
+  .about-block-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+  }
+
+  /* ── VERTICALS ── */
+  .verticals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .vertical-card {
+    background: var(--black);
+    padding: 48px 36px;
+    position: relative;
+    transition: all 0.5s ease;
+    cursor: default;
+    overflow: hidden;
+  }
+
+  .vertical-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(200, 255, 0, 0.04) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .vertical-card:hover::before { opacity: 1; }
+
+  .vertical-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .vertical-icon {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    position: relative;
+    display: block;
+    line-height: 1;
+  }
+
+  .vertical-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .vertical-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .vertical-tag {
+    margin-top: 24px;
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(200, 255, 0, 0.2);
+    padding: 6px 14px;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  /* ── APPROACH ── */
+  .approach {
+    border-top: 1px solid var(--border);
+  }
+
+  .approach-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+  }
+
+  .approach-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .approach-step {
+    padding: 40px 32px;
+    border-left: 1px solid var(--border);
+    position: relative;
+  }
+
+  .approach-step:first-child { border-left: none; }
+
+  .step-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgba(200, 255, 0, 0.1);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .step-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .step-desc {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1.65;
+  }
+
+  /* ── CTA BAND ── */
+  .cta-band {
+    padding: 120px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-band-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--black) 0%, rgba(200, 255, 0, 0.03) 50%, var(--black) 100%);
+  }
+
+  .cta-band h2 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    position: relative;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .cta-band p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--gray-light);
+    margin-top: 24px;
+    position: relative;
+  }
+
+  .cta-band .btn-primary {
+    margin-top: 40px;
+    position: relative;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.78rem;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .about { grid-template-columns: 1fr; }
+    .verticals-grid { grid-template-columns: 1fr; }
+    .approach-steps { grid-template-columns: repeat(2, 1fr); }
+    .approach-step { border-bottom: 1px solid var(--border); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    section, .hero { padding-left: 24px; padding-right: 24px; }
+    .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+    .hero-stats { flex-direction: column; gap: 24px; }
+    .stat-item::after { display: none; }
+    .approach-steps { grid-template-columns: 1fr; }
+    .approach-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .footer-left { flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <span class="logo-idea">idea</span><span class="logo-wrx">WRX</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#verticals">Verticals</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-tag">Multi-Franchise Holding Company</div>
+  <h1>
+    <span class="outline">Ideas</span> that<br>
+    <span class="accent">work.</span>
+  </h1>
+  <p class="hero-sub">
+    We acquire, build, and scale franchise brands across high-growth verticals. 
+    One portfolio. Multiple engines of growth.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">
+      Partner With Us
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-7M5 5h7v7"/></svg>
+    </a>
+    <a href="#verticals" class="btn-secondary">Explore Verticals</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Active Brands</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Verticals</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Runway</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Franchise Operations</span>
+    <span>Growth Capital</span>
+    <span>Brand Building</span>
+    <span>Multi-Unit Strategy</span>
+    <span>Operational Excellence</span>
+    <span>Scalable Systems</span>
+    <span>Franchise Operations</span>
+    <span>Growth Capital</span>
+    <span>Brand Building</span>
+    <span>Multi-Unit Strategy</span>
+    <span>Operational Excellence</span>
+    <span>Scalable Systems</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about">
+    <div>
+      <div class="section-tag">01 — Who We Are</div>
+      <h2 class="section-title">Operators first.<br>Investors always.</h2>
+      <p class="section-desc">
+        IdeaWRX is a holding company that acquires, operates, and invests across 
+        multiple franchise systems. We combine hands-on operational experience with 
+        disciplined capital allocation to build a portfolio of enduring brands.
+      </p>
+      <p class="section-desc" style="margin-top: 16px;">
+        Our edge is simple: we don't just fund franchises — we run them. Every brand 
+        in our portfolio benefits from shared infrastructure, cross-vertical insights, 
+        and a relentless focus on unit economics.
+      </p>
+    </div>
+    <div class="about-visual">
+      <div class="about-visual-inner">
+        <div class="about-block">
+          <div class="about-block-icon">⚡</div>
+          <div class="about-block-label">Acquire</div>
+        </div>
+        <div class="about-block">
+          <div class="about-block-icon">◎</div>
+          <div class="about-block-label">Operate</div>
+        </div>
+        <div class="about-block">
+          <div class="about-block-icon">↗</div>
+          <div class="about-block-label">Scale</div>
+        </div>
+        <div class="about-block">
+          <div class="about-block-icon">∞</div>
+          <div class="about-block-label">Compound</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICALS -->
+<section id="verticals" style="border-top: 1px solid var(--border);">
+  <div class="section-tag">02 — Verticals</div>
+  <h2 class="section-title">Where we play.</h2>
+  <p class="section-desc">
+    High-conviction verticals with durable demand, proven franchise models, and room to compound.
+  </p>
+  <div class="verticals-grid">
+    <div class="vertical-card">
+      <div class="vertical-num">01</div>
+      <div class="vertical-icon">🍽</div>
+      <div class="vertical-name">Food & Beverage</div>
+      <div class="vertical-desc">QSR and fast-casual brands built for density, consistency, and community-level demand.</div>
+      <div class="vertical-tag">Multi-Unit</div>
+    </div>
+    <div class="vertical-card">
+      <div class="vertical-num">02</div>
+      <div class="vertical-icon">🏗</div>
+      <div class="vertical-name">Services & Home</div>
+      <div class="vertical-desc">Essential, recession-resistant service franchises with recurring revenue and low overhead.</div>
+      <div class="vertical-tag">Recurring</div>
+    </div>
+    <div class="vertical-card">
+      <div class="vertical-num">03</div>
+      <div class="vertical-icon">💪</div>
+      <div class="vertical-name">Health & Fitness</div>
+      <div class="vertical-desc">Membership-driven wellness brands riding long-term secular trends in personal health.</div>
+      <div class="vertical-tag">Membership</div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach" class="approach">
+  <div class="approach-header">
+    <div>
+      <div class="section-tag">03 — How We Work</div>
+      <h2 class="section-title">Our playbook.</h2>
+    </div>
+    <p class="section-desc" style="margin-top: 0; max-width: 420px;">
+      Disciplined process. Repeatable outcomes. We've built a system to identify, acquire, and scale franchise brands.
+    </p>
+  </div>
+  <div class="approach-steps">
+    <div class="approach-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Source & Screen</div>
+      <div class="step-desc">We filter hundreds of franchise opportunities down to those with strong unit economics, brand moat, and whitespace.</div>
+    </div>
+    <div class="approach-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Acquire & Structure</div>
+      <div class="step-desc">Flexible capital structures — from greenfield development to multi-unit acquisitions — optimized for long-term ownership.</div>
+    </div>
+    <div class="approach-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Operate & Optimize</div>
+      <div class="step-desc">Shared back-office, data-driven ops, and A-player GMs. We run every location like it's the only one.</div>
+    </div>
+    <div class="approach-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Scale & Compound</div>
+      <div class="step-desc">Reinvest cash flows into new units and new brands. The portfolio strengthens as it grows.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band" id="contact">
+  <div class="cta-band-bg"></div>
+  <h2>Let's build<br>something <span style="color: var(--accent);">that works.</span></h2>
+  <p>Founders, operators, and capital partners — we're always open to a conversation.</p>
+  <a href="/cdn-cgi/l/email-protection#620a070e0e0d220b06070315101a4c010d0f" class="btn-primary">
+    <span class="__cf_email__" data-cfemail="a7cfc2cbcbc8e7cec3c2c6d0d5df89c4c8ca">[email&#160;protected]</span>
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l7-7M5 5h7v7"/></svg>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="#" class="logo">
+      <span class="logo-idea">idea</span><span class="logo-wrx">WRX</span>
+    </a>
+    <span class="footer-copy">© 2026 IdeaWRX. All rights reserved.</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#verticals">Verticals</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="/cdn-cgi/l/email-protection#09616c65656649606d6c687e7b71276a6664">Contact</a></li>
+  </ul>
+</footer>
+
+<!-- SCROLL REVEAL -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  document.qu
