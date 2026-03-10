@@ -84,34 +84,24 @@ nav.scrolled {
   background: rgba(10, 10, 10, 0.9);
 }
 
+nav.scrolled .logo-img {
+  height: 44px;
+}
+
 .logo {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   text-decoration: none;
-  gap: 0;
 }
 
-.logo-idea {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
-  font-style: italic;
-  font-size: 1.45rem;
-  letter-spacing: -0.01em;
-  color: var(--white);
-  transition: opacity 0.3s;
+.logo-img {
+  height: 56px;
+  width: auto;
+  transition: all 0.3s ease;
 }
 
-.logo-wrx {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 1.45rem;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-  transition: color 0.3s;
-}
-
-.logo:hover .logo-wrx {
-  color: #d4ff33;
+.logo:hover .logo-img {
+  opacity: 0.85;
 }
 
 .nav-links {
