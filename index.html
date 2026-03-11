@@ -70,36 +70,139 @@
 
   <!-- HERO -->
   <section class="hero" aria-label="Introduction">
-    <div class="hero-grid-bg" aria-hidden="true"></div>
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="hero-tag">Multi-Franchise Holding Company</div>
-    <h1>
-      <span class="outline">Ideas</span> that<br>
-      <span class="accent">work.</span>
-    </h1>
-    <p class="hero-sub">
-      We own and operate franchise brands across fitness, quick commerce, and retail.
-      One portfolio. Multiple engines of growth.
-    </p>
-    <div class="hero-actions">
-      <a href="#contact" class="btn-primary">
-        Partner With Us
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l7-7M5 5h7v7"/></svg>
-      </a>
-      <a href="#verticals" class="btn-secondary">Explore Verticals</a>
+    <div class="hero-grid-bg" aria-hidden="true">
+      <div class="hero-visual-frame"></div>
     </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num">6+</div>
-        <div class="stat-label">Active Brands</div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag">Multi-Franchise Holding Company</div>
+        <h1>
+          <span class="outline">Ideas</span> that<br>
+          <span class="accent">work.</span>
+        </h1>
+        <p class="hero-sub">
+          We own and operate franchise brands across fitness, quick commerce, and retail.
+          One portfolio. Multiple engines of growth.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">
+            Partner With Us
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l7-7M5 5h7v7"/></svg>
+          </a>
+          <a href="#verticals" class="btn-secondary">Explore Industries</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">6+</div>
+            <div class="stat-label">Active Brands</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Industries</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">&infin;</div>
+            <div class="stat-label">Runway</div>
+          </div>
+        </div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">3</div>
-        <div class="stat-label">Verticals</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">&infin;</div>
-        <div class="stat-label">Runway</div>
+      <div class="hero-graphic" aria-hidden="true">
+        <svg class="hero-network" viewBox="0 0 520 520" role="presentation" aria-hidden="true">
+          <defs>
+            <linearGradient id="netGlow" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="rgba(200,255,0,0.85)"/>
+              <stop offset="0.55" stop-color="rgba(245,242,236,0.35)"/>
+              <stop offset="1" stop-color="rgba(200,255,0,0.55)"/>
+            </linearGradient>
+            <linearGradient id="netGlow2" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="rgba(200,255,0,0.7)"/>
+              <stop offset="1" stop-color="rgba(245,242,236,0.25)"/>
+            </linearGradient>
+            <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="rgba(200,255,0,0.4)"/>
+              <stop offset="0.6" stop-color="rgba(200,255,0,0.08)"/>
+              <stop offset="1" stop-color="rgba(200,255,0,0)"/>
+            </radialGradient>
+            <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="2.2" result="b"/>
+              <feColorMatrix in="b" type="matrix" values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.7 0"/>
+              <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="g"/>
+              <feMerge>
+                <feMergeNode in="g"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- outer rings -->
+          <circle class="net-ring" cx="260" cy="260" r="210" />
+          <circle class="net-ring ring2" cx="260" cy="260" r="155" />
+          <circle class="net-ring ring3" cx="260" cy="260" r="90" />
+
+          <!-- hub glow -->
+          <circle cx="260" cy="260" r="60" fill="url(#hubGlow)" class="hub-glow" />
+
+          <!-- connections to hub -->
+          <path class="net-path net-path-hub" d="M260 260 C 220 200, 160 170, 105 155" />
+          <path class="net-path net-path-hub" d="M260 260 C 310 200, 370 170, 415 155" />
+          <path class="net-path net-path-hub" d="M260 260 C 260 320, 260 370, 260 420" />
+
+          <!-- inter-node connections -->
+          <path class="net-path" d="M105 155 C 170 100, 290 90, 415 155" />
+          <path class="net-path" d="M105 155 C 100 240, 140 360, 260 420" />
+          <path class="net-path" d="M415 155 C 420 240, 380 360, 260 420" />
+
+          <!-- secondary connections -->
+          <path class="net-path net-path-dim" d="M160 120 C 210 80, 310 80, 360 120" />
+          <path class="net-path net-path-dim" d="M80 260 C 120 310, 180 390, 195 415" />
+          <path class="net-path net-path-dim" d="M440 260 C 400 310, 340 390, 325 415" />
+
+          <!-- satellite micro-nodes -->
+          <circle class="net-node net-node-micro" cx="160" cy="120" r="3" />
+          <circle class="net-node net-node-micro" cx="360" cy="120" r="3" />
+          <circle class="net-node net-node-micro" cx="80" cy="260" r="3" />
+          <circle class="net-node net-node-micro" cx="440" cy="260" r="3" />
+          <circle class="net-node net-node-micro" cx="195" cy="415" r="3" />
+          <circle class="net-node net-node-micro" cx="325" cy="415" r="3" />
+
+          <!-- industry nodes -->
+          <g filter="url(#soft)">
+            <circle class="net-node net-node-industry n-fitness" cx="105" cy="155" r="14" />
+            <circle class="net-node net-node-industry n-qc" cx="415" cy="155" r="14" />
+            <circle class="net-node net-node-industry n-retail" cx="260" cy="420" r="14" />
+          </g>
+
+          <!-- industry labels -->
+          <text class="net-label" x="105" y="185" text-anchor="middle">FITNESS</text>
+          <text class="net-label" x="415" y="185" text-anchor="middle">QUICK COMM.</text>
+          <text class="net-label" x="260" y="450" text-anchor="middle">RETAIL</text>
+
+          <!-- center hub -->
+          <g filter="url(#glow)">
+            <circle class="net-node net-hub" cx="260" cy="260" r="18" />
+          </g>
+          <circle class="net-hub-ring" cx="260" cy="260" r="28" />
+
+          <!-- traveling signals -->
+          <path class="net-signal sig1" d="M105 155 C 170 100, 290 90, 415 155" />
+          <path class="net-signal sig2" d="M260 260 C 260 320, 260 370, 260 420" />
+          <path class="net-signal sig3" d="M260 260 C 220 200, 160 170, 105 155" />
+          <path class="net-signal sig4" d="M415 155 C 420 240, 380 360, 260 420" />
+        </svg>
+        <div class="hero-link l1"></div>
+        <div class="hero-link l2"></div>
+        <div class="hero-link l3"></div>
       </div>
     </div>
   </section>
